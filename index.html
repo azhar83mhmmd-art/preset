@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PresetFlow — Find Your Next Motion.</title>
+<meta name="description" content="Discover Alight Motion presets hidden in TikTok comments.">
+<meta name="theme-color" content="#0B0F12">
+<script>try{var t=localStorage.getItem("presetflow.theme.v1");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="prog" class="prog" aria-hidden="true"></div>
+<div class="bg" aria-hidden="true">
+  <div class="aurora"></div><div class="gridbg"></div><canvas id="fx" class="fx"></canvas><div id="glow" class="cursor-glow"></div>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+  <svg class="lines" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice"><path d="M-40 260C140 180 240 340 420 270S690 150 860 230"/><path d="M-40 340C150 260 250 420 430 350S700 230 860 310"/><path d="M-40 420C160 340 260 500 440 430S710 310 860 390"/></svg>
+</div>
+<header class="topbar">
+  <a class="brand" href="./" aria-label="PresetFlow home">
+    <svg class="logo" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="p" stroke="currentColor" d="M7 20V4h6.5a4.5 4.5 0 0 1 0 9H7"/><path class="w" stroke="currentColor" stroke-opacity=".6" d="M11 18c2.5 0 3.5-1.2 5.5-1.5S20 17 21 18"/></svg>
+    <span class="wordmark">Preset<b>Flow</b></span>
+  </a>
+  <div class="top-actions">
+    <div class="theme-wrap">
+      <button id="themeBtn" class="btn-ghost icon-only" type="button" aria-label="Ganti warna tema" aria-expanded="false" aria-controls="themePop">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.8-1.7H17a4 4 0 0 0 4-4c0-4.4-4-8.2-9-8.2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="7.5" cy="11" r="1.1" fill="currentColor"/><circle cx="10.5" cy="7.2" r="1.1" fill="currentColor"/><circle cx="15" cy="7.6" r="1.1" fill="currentColor"/></svg>
+      </button>
+      <div id="themePop" class="glass theme-pop" role="menu" hidden>
+        <button type="button" role="menuitem" data-t="mint" aria-label="Mint" style="--c:#78DDB0"></button>
+        <button type="button" role="menuitem" data-t="violet" aria-label="Violet" style="--c:#A78BFA"></button>
+        <button type="button" role="menuitem" data-t="sunset" aria-label="Sunset" style="--c:#FB9F78"></button>
+        <button type="button" role="menuitem" data-t="ocean" aria-label="Ocean" style="--c:#5EB5FF"></button>
+        <button type="button" role="menuitem" data-t="rose" aria-label="Rose" style="--c:#F472B6"></button>
+      </div>
+    </div>
+    <button id="colBtn" class="btn-ghost" type="button" aria-label="Buka Koleksi">
+      <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="lbl">Koleksi</span><b id="favCount" class="fav-count" hidden>0</b>
+    </button>
+    <button id="installBtn" class="btn-ghost" type="button" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Install App</span>
+    </button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="eyebrow in" style="--d:0">PRESET DISCOVERY ENGINE</p>
+    <h1 class="in" style="--d:1">Your Next <em>Motion</em> Starts Here.</h1>
+    <p class="lede in" style="--d:2">Find Alight Motion preset links shared in TikTok comments, all in one place.</p>
+    <a id="liveChip" class="live-chip in" style="--d:3" href="#activity" hidden><i></i><span id="liveChipText"></span></a>
+  </section>
+  <div class="marquee in" style="--d:3" aria-hidden="true"><div class="track">
+    <span>⚡ Instant preset finder</span><span>🔗 Batch up to 5 links</span><span>🟢 Link status check</span><span>▦ QR &amp; share</span><span>❤ Personal collection</span><span>📈 Real-time activity</span><span>📲 Install as app</span>
+    <span>⚡ Instant preset finder</span><span>🔗 Batch up to 5 links</span><span>🟢 Link status check</span><span>▦ QR &amp; share</span><span>❤ Personal collection</span><span>📈 Real-time activity</span><span>📲 Install as app</span>
+  </div></div>
+
+  <div id="clipBanner" class="glass clip" role="region" aria-label="Link TikTok terdeteksi di clipboard" hidden>
+    <div class="clip-txt"><b>Cari preset dari link ini?</b><span id="clipUrl"></span></div>
+    <div class="clip-act"><button id="clipGo" class="btn-ghost" type="button">Cari</button><button id="clipNo" class="btn-text" type="button">Abaikan</button></div>
+  </div>
+
+  <section class="glass search in" style="--d:4" aria-labelledby="urlLabel" id="searchCard">
+    <div class="field-head">
+      <svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <label id="urlLabel" for="urlInput">TikTok Video URL</label>
+    </div>
+    <div class="input-row" id="inputRow">
+      <input id="urlInput" type="text" inputmode="url" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Paste your TikTok video link..." data-ph="1" aria-describedby="hint">
+      <button id="pasteBtn" class="icon-btn" type="button" aria-label="Paste from clipboard" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="12" height="16" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 5V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+      </button>
+      <button id="clearBtn" class="icon-btn" type="button" aria-label="Clear input" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <p id="hint" class="hint">Paste a TikTok link — or up to 5 at once.</p>
+    <button id="findBtn" class="btn-primary" type="button">
+      <span class="btn-label">Find Presets</span><kbd class="kbd" aria-hidden="true">/</kbd>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m0 0-6-6m6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </section>
+
+  <section id="results" class="results" aria-live="polite" aria-busy="false"></section>
+
+  <section id="activitySetup" class="glass setup" hidden>
+    <h2>Aktivitas real-time belum terhubung</h2>
+    <p id="setupMsg">Isi <code>SUPABASE_URL</code> dan <code>SUPABASE_ANON_KEY</code> di <code>config.js</code>, lalu jalankan <code>supabase.sql</code> di SQL Editor Supabase. Pesan ini hanya tampil di localhost.</p>
+  </section>
+
+  <section id="activity" class="activity" hidden aria-labelledby="actTitle">
+    <div class="act-head">
+      <h2 id="actTitle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Aktivitas Real-time</h2>
+      <span id="liveBadge" class="live"><i></i><span>LIVE</span></span>
+    </div>
+    <div class="stats">
+      <article class="glass stat tone-mint reveal">
+        <div class="stat-top"><span>TOTAL PENCARIAN</span><b class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 17 6-6 4 4 8-8M15 7h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></b></div>
+        <div class="num" id="statTotal">0</div>
+        <div class="cap" id="capTotal">Seluruh waktu</div>
+        <svg class="spark" id="spark" viewBox="0 0 100 32" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--em)" stop-opacity=".4"/><stop offset="1" style="stop-color:var(--em)" stop-opacity="0"/></linearGradient></defs><path class="area" fill="url(#sparkFill)"/><path class="line" fill="none" style="stroke:var(--em)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>
+      </article>
+      <article class="glass stat tone-amber reveal">
+        <div class="stat-top"><span>PENCARIAN HARI INI</span><b class="chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7L12 3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></b></div>
+        <div class="num" id="statToday">0</div>
+        <div class="cap">Berhasil · zona waktu WIB <span id="delta" class="delta" hidden></span></div>
+      </article>
+    </div>
+    <article class="glass panel-card reveal">
+      <div class="card-head"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 17 6-6 4 4 8-8M15 7h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>7 Hari Terakhir</h3><small id="chartMeta"></small></div>
+      <div id="chart" class="chart" role="img" aria-label="Jumlah pencarian per hari selama 7 hari terakhir"></div>
+    </article>
+    <article class="glass panel-card reveal">
+      <div class="card-head"><h3><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Aktivitas Terbaru</h3><small>LIVE FEED</small></div>
+      <ul id="feed" class="feed"></ul>
+      <p id="feedEmpty" class="feed-empty" hidden>Belum ada pencarian. Jadilah yang pertama.</p>
+    </article>
+  </section>
+
+  <section id="collection" class="collection" hidden aria-labelledby="colTitle">
+    <div class="col-head">
+      <button id="colBack" class="btn-ghost" type="button">&larr; Kembali</button>
+      <h2 id="colTitle">Koleksi <span id="colCount" class="count"></span></h2>
+      <button id="colClear" class="btn-text" type="button" hidden>Hapus semua</button>
+    </div>
+    <div class="col-tools">
+      <label class="col-search"><svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16"><path d="M11 4.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13Zm5 11.5 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><input id="colSearch" type="search" placeholder="Cari di koleksi..." autocomplete="off" aria-label="Cari di koleksi"></label>
+      <select id="colSort" aria-label="Urutkan koleksi"><option value="new">Terbaru</option><option value="old">Terlama</option><option value="az">A–Z</option></select>
+      <button id="colCheck" class="btn-ghost sm" type="button">Cek status</button>
+      <button id="colCopy" class="btn-ghost sm" type="button">Salin semua</button>
+      <button id="colExport" class="btn-ghost sm" type="button">Ekspor</button>
+      <label class="btn-ghost sm" for="colImport" role="button" tabindex="0">Impor</label><input id="colImport" type="file" accept="application/json,.json" hidden>
+    </div>
+    <div id="colList"></div>
+  </section>
+
+  <section id="historyBox" class="history" hidden>
+    <div class="history-head"><h2>Recent searches</h2><button id="clearHistory" class="btn-text" type="button">Clear history</button></div>
+    <ul id="historyList"></ul>
+  </section>
+</main>
+<footer>PresetFlow · Built for Alight Motion creators</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="installDialog" class="glass dialog">
+  <h2>Install PresetFlow</h2>
+  <p id="installText"></p>
+  <button class="btn-primary small" id="closeInstall" type="button">Got it</button>
+</dialog>
+
+<dialog id="qrDialog" class="glass dialog qr-dialog">
+  <h2>Scan untuk membuka preset</h2>
+  <p id="qrTitle"></p>
+  <div id="qrBox" class="qr-box" aria-label="QR code link preset"></div>
+  <p id="qrLink" class="qr-link"></p>
+  <div class="qr-act"><button id="qrSave" class="btn-ghost" type="button">Unduh PNG</button><button id="qrClose" class="btn-primary small" type="button">Tutup</button></div>
+</dialog>
+
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script defer src="config.js"></script>
+<script defer src="qr.js"></script>
+<script defer src="activity.js"></script>
+<script defer src="script.js"></script>
+<script defer src="fx.js"></script>
+</body>
+</html>
