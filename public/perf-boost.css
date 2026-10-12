@@ -1,0 +1,25 @@
+/* PresetFlow perf-boost: pasang SETELAH stylesheet utama. Semua aturan hanya aktif jika <html> punya class pf-lite. */
+
+/* Blur kaca (backdrop-filter) = penyebab scroll berat terbesar di HP. Kartu tetap ada, hanya tanpa blur. */
+html.pf-lite *,
+html.pf-lite *::before,
+html.pf-lite *::after{
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+
+/* Background fixed memaksa repaint tiap scroll di mobile */
+html.pf-lite *{background-attachment:scroll!important}
+
+/* Kurangi layer GPU berlebihan */
+html.pf-lite *{will-change:auto!important}
+
+/* Jeda animasi tak berujung (glow, pulse, shimmer, dll) hanya selama scroll; lanjut otomatis setelah berhenti */
+html.pf-lite.is-scrolling *,
+html.pf-lite.is-scrolling *::before,
+html.pf-lite.is-scrolling *::after{
+  animation-play-state:paused!important;
+}
+
+/* Canvas latar dijadikan layer sendiri agar tidak ikut di-repaint saat scroll */
+html.pf-lite canvas{transform:translateZ(0)}
