@@ -1,0 +1,44 @@
+/* Aktivitas Terbaru -> daftar preset. Ringan: tanpa blur, animasi hanya transform/opacity. */
+[data-pfa-old]{display:none!important}
+
+.pfa-list{--acc:52,211,153;display:grid;gap:10px;margin-top:14px}
+@media(min-width:760px){.pfa-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.pfa-item{position:relative;contain:layout paint;border-radius:22px;padding:12px;
+  background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.08)}
+.pfa-main{display:flex;align-items:center;gap:12px}
+.pfa-thumb{flex:none;width:58px;aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:rgba(255,255,255,.06)}
+.pfa-thumb img{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s}
+.pfa-thumb img.ok{opacity:1}
+.pfa-thumb.bad{display:grid;place-items:center}
+.pfa-thumb.bad::after{content:"\266A";font-size:1.3rem;opacity:.45}
+.pfa-txt{flex:1;min-width:0}
+.pfa-name{margin:0 0 5px;font-size:.98rem;font-weight:600;line-height:1.25;color:inherit;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pfa-sub{display:flex;align-items:center;gap:8px;font-size:.78rem;opacity:.65}
+.pfa-dot{flex:none;width:8px;height:8px;border-radius:50%;background:rgb(var(--acc))}
+
+.pfa-acts{display:flex;gap:8px;margin-top:10px}
+.pfa-btn{flex:1;min-height:40px;border-radius:999px;border:1px solid rgba(255,255,255,.14);
+  background:transparent;color:inherit;font:inherit;font-size:.82rem;font-weight:600;
+  display:grid;place-items:center;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pfa-btn.pri{background:rgb(var(--acc));border-color:transparent;color:#052e1f}
+.pfa-btn.done{border-color:rgb(var(--acc));color:rgb(var(--acc))}
+.pfa-btn:active{opacity:.75}
+.pfa-btn:focus-visible{outline:2px solid rgb(var(--acc));outline-offset:2px}
+
+.pfa-item.enter{animation:pfaIn .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d,0ms)}
+@keyframes pfaIn{from{opacity:0;transform:translateY(-12px) scale(.97)}to{opacity:1;transform:none}}
+.pfa-item.fresh::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  border:2px solid rgb(var(--acc));animation:pfaRing 1.6s ease-out forwards}
+@keyframes pfaRing{to{opacity:0}}
+.pfa-item.leave{pointer-events:none;animation:pfaOut .35s ease-in forwards}
+@keyframes pfaOut{to{opacity:0;transform:scale(.95)}}
+
+.pfa-empty{padding:18px;border-radius:22px;border:1px dashed rgba(255,255,255,.16);
+  text-align:center;font-size:.9rem;opacity:.7;grid-column:1/-1}
+
+@media(prefers-reduced-motion:reduce){
+  .pfa-item,.pfa-item::after{animation:none!important}
+  .pfa-thumb img{transition:none}
+}
